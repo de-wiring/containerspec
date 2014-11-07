@@ -1,7 +1,7 @@
 spec-dockerbox
 ==============
 
-spec-dockerbox is a small prototype for ensure that docker images and containers on a host adhere to given conditions, i.e.
+spec-dockerbox is a small prototype to ensure that docker images and containers on a host adhere to given conditions, i.e.
   * "all my images should by 64 bit"
   * "no container should run as user root"
   * "containers matching /db/ should define Environment entry xyz"
