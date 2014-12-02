@@ -17,4 +17,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision 'shell', path: 'provision.d/05_cucumber.sh'
   config.vm.provision 'shell', path: 'provision.d/10_docker.sh'
   config.vm.provision 'shell', path: 'provision.d/20_serverspec'
+  config.vm.provision 'shell', path: 'provision.d/21_run_serverspec.sh'
 end
