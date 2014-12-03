@@ -4,8 +4,8 @@
 @Invalid
 Feature: Invalid clauses do not work
 
-Scenario: invalid images cannot be found
-  Given i pull 'scratch:stoneage'
+#Scenario: invalid images cannot be found
+#  Given i pull 'scratch:stoneage'
 
 Scenario: Invalid When Clauses do not work
   When there are images with repo 'nonexisting'
@@ -26,6 +26,14 @@ Scenario: Inspect, invalid 1st level clauses do not work
 Scenario: Inspect, invalid 1st level clauses do not work
   When there are images tagged 'debian:jessie'
   Then 'Os' should be 'nonexisting'
+
+Scenario: Inspect, invalid 1st level clauses do not work
+  When there are images tagged 'debian:jessie'
+  Then 'Size' should not be '0'
+
+Scenario: Inspect, invalid 1st level clauses do not work
+  When there are images tagged 'debian:jessie'
+  Then 'Size' should be '1'
 
 Scenario: Inspect, invalid 1st level clauses do not work
   When there are images tagged 'debian:jessie'
@@ -54,3 +62,35 @@ Scenario: Inspect, invalid 1st level clauses work
 Scenario: Inspect, invalid 1st level clauses work
   When there are images tagged 'debian:jessie'
   Then 'Comment' should be set
+
+Scenario: Inspect Container Config, invalid 2nd level clauses work
+  When there are images tagged 'debian:jessie'
+  Then within ContainerConfig, 'AttachStdin' should not be like 'false'
+
+Scenario: Inspect Container Config, invalid 2nd level clauses work
+  When there are images tagged 'debian:jessie'
+  Then within ContainerConfig, 'AttachStdin' should be like 'true'
+
+Scenario: Inspect Container Config, invalid 2nd level clauses work
+  When there are images tagged 'debian:jessie'
+  Then within ContainerConfig, 'AttachStdin' should be like '^$'
+
+Scenario: Inspect Container Config, invalid 2nd level clauses work
+  When there are images tagged 'debian:jessie'
+  Then within ContainerConfig, 'Env' should not be like '.*/bin.*'
+
+Scenario: Inspect Container Config, invalid 2nd level clauses work
+  When there are images tagged 'debian:jessie'
+  Then within ContainerConfig, 'Env' should be like '.*/opt.*'
+
+Scenario: Inspect Container Config, invalid 2nd level clauses work
+  When there are images tagged 'debian:jessie'
+  Then within ContainerConfig, 'Entrypoint' should be set
+
+Scenario: Inspect Container Config, invalid 2nd level clauses work
+  When there are images tagged 'debian:jessie'
+  Then within ContainerConfig, 'Hostname' should not be set
+
+Scenario: Inspect Container Config, invalid 2nd level clauses work
+  When there are images tagged 'debian:jessie'
+  Then within NonexistingSubpart, 'Whatever' should not be set

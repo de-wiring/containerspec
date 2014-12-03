@@ -85,14 +85,14 @@ end
 
 Then(/^'(.*)' should be '(.*)'$/) do |key,arg|
 	err =( @matching_images || Docker::Image.all ).select do |img|
-		img.json[key] != arg
+		img.json[key].to_s != arg.to_s
 	end
 	fail "#{err.size} image(s) do not have #{key} of #{arg} but should have: #{short_ids(err)}" if err.size > 0
 end
 
 Then(/^'(.*)' should not be '(.*)'$/) do |key,arg|
 	err = ( @matching_images || Docker::Image.all ).select do |img|
-		img.json[key] == arg
+		img.json[key].to_s == arg.to_s
 	end
 	fail "#{err.size} image(s) do have #{key} of #{arg} but should not have: #{short_ids(err)}" if err.size > 0
 end
@@ -102,7 +102,7 @@ end
 Then(/^'(.*)' should be like '(.*)'$/) do |key,arg|
 	re = Regexp.new arg
 	err = ( @matching_images || Docker::Image.all ).select do |img|
-		img.json[key] && !( img.json[key].match re )
+    ( img.json[key] != nil )  && !( img.json[key].to_s.match re )
 	end
   fail  "#{err.size} image(s) do not have #{key} like #{arg} but should have: #{short_ids(err)}" if err.size > 0
 end
@@ -110,7 +110,7 @@ end
 Then(/^'(.*)' should not be like '(.*)'$/) do |key,arg|
 	re = Regexp.new arg
 	err = ( @matching_images || Docker::Image.all ).select do |img|
-		img.json[key] && ( img.json[key].match re )
+    ( img.json[key] != nil )  && ( img.json[key].to_s.match re )
 	end
   fail  "#{err.size} image(s) do have #{key} like #{arg} but should not have: #{short_ids(err)}" if err.size > 0
 end
@@ -118,19 +118,57 @@ end
 # 1st level, general
 Then(/^'(.*)' should be set$/) do |key|
 	err = ( @matching_images || Docker::Image.all ).select do |img|
-		(img.json[key] == nil) || (
-			img.json[key] && !( be_set(img.json[key]))
-		)
+    ( img.json[key] != nil )  && !( be_set(img.json[key]))
 	end
   fail  "#{err.size} image(s) do not have #{key} set (but should have): #{short_ids(err)}" if err.size > 0
 end
 
 Then(/^'(.*)' should not be set$/) do |key|
 	err = ( @matching_images || Docker::Image.all ).select do |img|
-		img.json[key] && ( be_set(img.json[key]))
+		( img.json[key] != nil ) && ( be_set(img.json[key]))
 	end
   fail  "#{err.size} image(s) do have #{key} set (but should not have): #{short_ids(err)}" if err.size > 0
 end
 
+# 2nd level, regexp
 
+Then(/^within (.*), '(.*)' should be like '(.*)'$/) do |part,key,arg|
+  fail "using within, valid parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
+  re = Regexp.new arg
+  err = ( @matching_images || Docker::Image.all ).select do |img|
+    cc = img.json['ContainerConfig']
+    matching = (cc[key].to_s.match(re) != nil)
+    ( cc != nil ) && ( cc[key] != nil ) && ( matching == false )
+  end
+  fail  "#{err.size} image(s) do not have ContainerConfig.#{key} like #{arg} but should have: #{short_ids(err)}" if err.size > 0
+end
 
+Then(/^within (.*), '(.*)' should not be like '(.*)'$/) do |part,key,arg|
+  fail "using within, valid  parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
+  re = Regexp.new arg
+  err = ( @matching_images || Docker::Image.all ).select do |img|
+    cc = img.json['ContainerConfig']
+    matching = (cc[key].to_s.match(re) != nil)
+    ( cc != nil ) && ( cc[key] != nil ) && ( matching == true )
+  end
+  fail  "#{err.size} image(s) do have ContainerConfig.#{key} like #{arg} but should not have: #{short_ids(err)}" if err.size > 0
+end
+
+# 2nd level, general
+Then(/^within (.*), '(.*)' should be set$/) do |part, key|
+  fail "using within, valid  parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
+  err = ( @matching_images || Docker::Image.all ).select do |img|
+    cc = img.json[part]
+    ( cc[key] != nil )  && !( be_set(cc[key]))
+  end
+  fail  "#{err.size} image(s) do not have #{key} set (but should have): #{short_ids(err)}" if err.size > 0
+end
+
+Then(/^within (.*), '(.*)' should not be set$/) do |part, key|
+  fail "using within, valid  parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
+  err = ( @matching_images || Docker::Image.all ).select do |img|
+    cc = img.json[part]
+    ( cc[key] != nil )  && ( be_set(cc[key]))
+  end
+  fail  "#{err.size} image(s) do have #{key} set (but should not have): #{short_ids(err)}" if err.size > 0
+end
