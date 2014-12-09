@@ -46,7 +46,9 @@ Scenario: Inspect, valid 1st level clauses work
 
 Scenario: Inspect Container Config, valid 2nd level clauses work
   When there are images tagged 'debian:jessie'
+  Then within Config, 'AttachStdin' should be 'false'
   Then within Config, 'AttachStdin' should be like 'false'
+  Then within Config, 'AttachStdin' should not be 'true'
   Then within Config, 'AttachStdin' should not be like 'true'
   Then within Config, 'AttachStdin' should not be like '^$'
   Then within Config, 'Env' should be like '.*/bin.*'

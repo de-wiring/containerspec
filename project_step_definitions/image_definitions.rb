@@ -19,10 +19,13 @@ def be_set(o)
 	if o.class == Array
 		return o.size > 0
 	end
+	if o.class == Hash
+		return o.size > 0
+	end
 	if o.is_a?(Numeric)
 		return o > 0
   end
-  raise 'Unable to compare element of class #{o.class}'
+  raise "Unable to compare element of class #{o.class}"
 end
 
 # Given a regexp for a Docker RepoTags entry, this
@@ -156,6 +159,26 @@ Then(/^within (.*), '(.*)' should not be like '(.*)'$/) do |part,key,arg|
 end
 
 # 2nd level, general
+Then(/^within (.*), '(.*)' should be '(.*)'$/) do |part,key,arg|
+  fail "using within, valid parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
+  err = ( @matching_images || Docker::Image.all ).select do |img|
+    cc = img.json['ContainerConfig']
+    matching = (cc[key].to_s == arg.to_s)
+    ( cc != nil ) && ( cc[key] != nil ) && ( matching == false )
+  end
+  fail  "#{err.size} image(s) do not have ContainerConfig.#{key} eq #{arg} but should have: #{short_ids(err)}" if err.size > 0
+end
+
+Then(/^within (.*), '(.*)' should not be '(.*)'$/) do |part,key,arg|
+  fail "using within, valid  parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
+  err = ( @matching_images || Docker::Image.all ).select do |img|
+    cc = img.json['ContainerConfig']
+    matching = (cc[key].to_s == arg.to_s)
+    ( cc != nil ) && ( cc[key] != nil ) && ( matching == true )
+  end
+  fail  "#{err.size} image(s) do have ContainerConfig.#{key} eq #{arg} but should not have: #{short_ids(err)}" if err.size > 0
+end
+
 Then(/^within (.*), '(.*)' should be set$/) do |part, key|
   fail "using within, valid  parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
   err = ( @matching_images || Docker::Image.all ).select do |img|

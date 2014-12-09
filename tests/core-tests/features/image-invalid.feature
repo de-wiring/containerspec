@@ -73,6 +73,14 @@ Scenario: Inspect Container Config, invalid 2nd level clauses work
 
 Scenario: Inspect Container Config, invalid 2nd level clauses work
   When there are images tagged 'debian:jessie'
+  Then within ContainerConfig, 'AttachStdin' should not be 'false'
+
+Scenario: Inspect Container Config, invalid 2nd level clauses work
+  When there are images tagged 'debian:jessie'
+  Then within ContainerConfig, 'AttachStdin' should be 'true'
+
+Scenario: Inspect Container Config, invalid 2nd level clauses work
+  When there are images tagged 'debian:jessie'
   Then within ContainerConfig, 'AttachStdin' should be like '^$'
 
 Scenario: Inspect Container Config, invalid 2nd level clauses work

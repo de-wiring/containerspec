@@ -4,6 +4,8 @@ if [[ $? -ne 0 ]]; then
 	docker info
 fi
 
+gpasswd -a vagrant docker
+
 # pull us some images to play with
 docker pull debian:jessie
 docker pull busybox:latest

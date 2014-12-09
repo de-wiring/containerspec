@@ -1,1 +1,0 @@
-../../../project_step_definitions/image_definitions.rb
