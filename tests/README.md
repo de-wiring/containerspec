@@ -1,8 +1,3 @@
+## Test cases
 
-`project_step_definitions` contains step definitions for testing images and containers. These definitions
-can be linked into cucumber feature definitions
-
-sample_images
-
-`tests` contains cucumber-tests for all matchers and a serverspec to test all of these automatically.
-
+The `core-tests/` folder contains generic test cases to check that the step definitions are correct. It runs on base images (i.e. debian:jessie) and builds a sample image. `example-tests` show a detailed example for a nginx-node-redis stack.
