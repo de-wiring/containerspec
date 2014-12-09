@@ -4,8 +4,8 @@
 @Invalid
 Feature: Invalid clauses do not work
 
-#Scenario: invalid images cannot be found
-#  Given i pull 'scratch:stoneage'
+Scenario: invalid images cannot be found
+  Given i pull 'scratch:stoneage'
 
 Scenario: Invalid When Clauses do not work
   When there are images with repo 'nonexisting'

@@ -4,11 +4,11 @@
 @Valid
 Feature: Valid clauses work
 
-#@Registry
-#Scenario: valid images can be found
-#  Given i pull 'debian:jessie'
-#  Given i pull 'scratch:latest'
-#
+@Registry
+Scenario: valid images can be found
+  Given i pull 'debian:jessie'
+  Given i pull 'scratch:latest'
+
 Scenario: When Clauses work
   When there are images
 
@@ -46,10 +46,10 @@ Scenario: Inspect, valid 1st level clauses work
 
 Scenario: Inspect Container Config, valid 2nd level clauses work
   When there are images tagged 'debian:jessie'
-  Then within ContainerConfig, 'AttachStdin' should be like 'false'
-  Then within ContainerConfig, 'AttachStdin' should not be like 'true'
-  Then within ContainerConfig, 'AttachStdin' should not be like '^$'
-  Then within ContainerConfig, 'Env' should be like '.*/bin.*'
-  Then within ContainerConfig, 'Env' should not be like '.*/opt.*'
-  Then within ContainerConfig, 'Entrypoint' should not be set
-  Then within ContainerConfig, 'Hostname' should be set
+  Then within Config, 'AttachStdin' should be like 'false'
+  Then within Config, 'AttachStdin' should not be like 'true'
+  Then within Config, 'AttachStdin' should not be like '^$'
+  Then within Config, 'Env' should be like '.*/bin.*'
+  Then within Config, 'Env' should not be like '.*/opt.*'
+  Then within Config, 'Entrypoint' should not be set
+  Then within Config, 'Hostname' should be set

@@ -21,7 +21,8 @@ def be_set(o)
 	end
 	if o.is_a?(Numeric)
 		return o > 0
-	end
+  end
+  raise 'Unable to compare element of class #{o.class}'
 end
 
 # Given a regexp for a Docker RepoTags entry, this
