@@ -4,13 +4,12 @@ ENV	DEBIAN_FRONTEND	noninteractive
 
 RUN 	apt-get update -yq && \
 	apt-get install -yq ruby ruby-dev make build-essential rubygems && \
-	rm -rf /var/lib/apt/lists/* && \
 	gem install rake 	-v '10.4.0' 	--no-rdoc --no-ri && \
 	gem install cucumber 	-v '1.3.17' 	--no-rdoc --no-ri && \
 	gem install docker-api 	-v '1.15.0' 	--no-rdoc --no-ri && \
 	gem install rspec 	-v '3.1.0' 	--no-rdoc --no-ri && \
 	gem install specinfra 	-v '2.10.2' 	--no-rdoc --no-ri && \
-	gem install serverspec 	-v '2.7.0'	--no-rdoc --no-ri && \
+	gem install serverspec 	-v '2.7.1'	--no-rdoc --no-ri && \
 	apt-get purge -yq make build-essential ruby-dev && \
 	rm -rf /var/lib/apt/lists/*
 

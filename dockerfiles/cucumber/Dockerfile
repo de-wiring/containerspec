@@ -1,4 +1,4 @@
-FROM de_wiring/specbase
+FROM de_wiring/spec_base
 
 ADD entrypoint.sh	/entrypoint.sh
 ADD project_step_definitions	/project_step_definitions
