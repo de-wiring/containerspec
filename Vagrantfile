@@ -10,6 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # map folders into vm
   config.vm.synced_folder "project_step_definitions", "/spec_dockerbox/project_step_definitions"
   config.vm.synced_folder "tests", "/spec_dockerbox/tests"
+  config.vm.synced_folder "dockerfiles", "/spec_dockerbox/dockerfiles"
 
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
