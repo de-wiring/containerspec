@@ -5,7 +5,7 @@ and its attributes.
 
 ```bash
 $ # for convenience
-$ docker tag de_wiring/spec_serverspec:0.1 serverspec:latest
+$ docker tag dewiring/spec_serverspec:0.1 serverspec:latest
 
 $ cd <to some example spec dir>
 $ cat test_spec.rb
@@ -17,7 +17,7 @@ describe docker_image('nginx:latest') do
 end
 
 $ export DS=/var/run/docker.sock
-$ docker run -v $DS:$DS -v `pwd`:/spec serverspec
+$ docker run --rm -v $DS:$DS -v `pwd`:/spec serverspec
 /usr/bin/ruby2.1 -I/var/lib/gems/2.1.0/gems/rspec-support-3.1.2/lib:/var/lib/gems/2.1.0/gems/rspec-core-3.1.7/lib /var/lib/gems/2.1.0/gems/rspec-core-3.1.7/exe/rspec --pattern spec/localhost/\*_spec.rb
 
 Docker image "nginx:latest"
