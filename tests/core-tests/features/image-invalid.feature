@@ -1,6 +1,7 @@
 # This file describes invalid conditions
 # which do not apply. All scenarios have to fail.
 
+@Images
 @Invalid
 Feature: Invalid clauses do not work
 

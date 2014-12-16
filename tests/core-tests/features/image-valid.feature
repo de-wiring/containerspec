@@ -1,6 +1,7 @@
 # This file describes valid scenarios based upon
 # the docker hub image of debian:jessie and scratch:latest
 
+@Images
 @Valid
 Feature: Valid clauses work
 

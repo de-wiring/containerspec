@@ -4,7 +4,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = ENV['BOXNAME'] || 'chef/debian-7.7'
+  config.vm.box = ENV['BOXNAME'] || 'chef/ubuntu-14.04'
   config.vm.box_check_update = false
 
   # map folders into vm
@@ -31,5 +31,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 cd /spec_dockerbox/tests/core-tests/sample_images
 ./build.sh
 EOF
+
 
 end
