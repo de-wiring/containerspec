@@ -237,3 +237,17 @@ Then(/^container should not expose port '(.*)'$/) do |arg|
   fail "#{err.size} containers do expose port #{arg}, but should not: #{short_ids(err)}" if err.size > 0
 end
 
+Then(/^it should be linked to '(.*)' with name '(.*)'$/) do |arg1, arg2|
+  re = Regexp.new("/#{arg1}:.*/#{arg2}")
+  err = (@matching_containers || get_containers).select do |c|
+    cc       = ( (c.json['HostConfig'] || {})['Links'] || {} )
+    matching = false
+    cc.each do |e|
+      matching = true if e.to_s.match(re)
+    end
+
+    ( matching == false )
+  end
+  fail "#{err.size} containers do link to container #{arg1} by name #{arg2}, but should: #{short_ids(err)}" if err.size > 0
+
+end

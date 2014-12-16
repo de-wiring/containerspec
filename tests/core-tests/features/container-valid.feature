@@ -8,32 +8,36 @@ Scenario: Set up container for test case
 
 Scenario: Non privileged
  When there are running containers named like 'spectest'
- Then within container HostConfig, 'Privileged' should be 'false'
- Then within container HostConfig, 'Privileged' should not be 'true'
- And it should not run privileged
+ And within container HostConfig, 'Privileged' should be 'false'
+ And within container HostConfig, 'Privileged' should not be 'true'
+  Then it should not run privileged
 
 Scenario: Environment entries
  When there are running containers named like 'spectest'
- Then within container Config, 'Env' should be like 'TESTKEY1=TESTVALUE1'
- Then within container Config, 'Env' should not be like 'non=existing'
- And its environment should include 'TESTKEY1'
- And its environment should not include 'nonexisting'
+ And within container Config, 'Env' should be like 'TESTKEY1=TESTVALUE1'
+ And within container Config, 'Env' should not be like 'non=existing'
+  Then its environment should include 'TESTKEY1'
+  Then its environment should not include 'nonexisting'
 
 Scenario: Check Volumes
  When there are running containers named like 'spectest'
- Then container 'Volumes' should be like '/media.*/tmp'
- Then container 'Volumes' should not be like '/media.*/xyz'
- And container volume '/media' should be mounted
- And container volume '/var' should not be mounted
- And container volume '/vol' should be mounted read-only
- And container volume '/media' should be mounted to host volume '/tmp'
+ And container 'Volumes' should be like '/media.*/tmp'
+ And container 'Volumes' should not be like '/media.*/xyz'
+  Then container volume '/media' should be mounted
+  Then container volume '/var' should not be mounted
+  Then container volume '/vol' should be mounted read-only
+  Then container volume '/media' should be mounted to host volume '/tmp'
 
 Scenario: Ports should be exposed
  When there are running containers named like 'spectest'
- Then within container NetworkSettings, 'Ports' should be like '9090/tcp'
- And container should expose port '9090'
- And container should not expose port '22'
- And container should expose port '9090' on host port '8080'
+ And within container NetworkSettings, 'Ports' should be like '9090/tcp'
+  Then container should expose port '9090'
+  Then container should not expose port '22'
+  Then container should expose port '9090' on host port '8080'
 
-
+Scenario: Set up container for test case
+ Given i rerun container named 'spec_linktest_2' with '-tdi --link spectest_1:link1 debian:jessie' 
+ When there are running containers named like 'spec_linktest'
+ And within container HostConfig, 'Links' should be like '/spectest_1:/spec_linktest_2/link1'
+  Then it should be linked to 'spectest_1' with name 'link1'
 

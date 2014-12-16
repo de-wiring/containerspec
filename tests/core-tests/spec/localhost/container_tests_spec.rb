@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Valid container scenarios should pass' do
   describe command 'cucumber --tags @Containers --tags @Valid' do
     its(:exit_status) { should eq 0 }
-    its(:stdout) { should match /^5 scenarios.*5 passed/ }
+    its(:stdout) { should match /^6 scenarios.*6 passed/ }
   end
 end
 
