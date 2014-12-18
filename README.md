@@ -98,12 +98,23 @@ Find a **more detailed examples** in [tests/examples-tests](https://github.com/d
 
 `Vagrantfile` will set up a virtual machine where an automated build test can be run (see [tests/core-tests](https://github.com/de-wiring/containerspec/tree/master/tests/core-tests))
 
+How it works
+------------
+
+Cucumber works on a set of feature files (as above) plus a set of step definitions, which are ruby files implementing regular expression matchers for the feature clauses. Currently, two step definition files are implemented (in `project_step_definitions`), one for images and one for containers.
+
+Step definitions use the Swipely Docker API [4] to query information about docker containers or images. By default, docker-api attaches to the docker socket, so it needs to be mounted (read-only) into the spec container.
+
+Cucumber expects files to appear in certain directories, which is abstracted away by putting all features in a (container-mounted) /spec directory and having the entrypoint script do the layout.
+
+Step definitions can of course be used at docker host level, without a need for pulling the dewiring/spec_cucumber container.
+
 References
 ----------
 - [1] [www.docker.com](www.docker.com)
 - [2] [Cucumber - cukes.info](cukes.info)
 - [3] [www.serverspec.org](www.serverspec.org)
-
+- [4] [docker-api](https://github.com/swipely/docker-api)
 
 License
 -------
