@@ -40,7 +40,7 @@ end
 # 0. targeting and locating images
 #
 
-Given /^i pull '([a-zA-Z0-9_]+)'$/ do |repo|
+Given /^i pull '([^:]+)'$/ do |repo|
   begin
     Docker::Image.create({ :fromImage => "#{repo}:latest" })
   rescue => e
@@ -48,7 +48,7 @@ Given /^i pull '([a-zA-Z0-9_]+)'$/ do |repo|
   end
 end
 
-Given /^i pull '([a-zA-Z0-9_]+):(.*)'$/ do |repo, tag|
+Given /^i pull '(.*):(.*)'$/ do |repo, tag|
   begin
     res = Docker::Image.create({ :fromImage => "#{repo}:#{tag}" })
   rescue => e

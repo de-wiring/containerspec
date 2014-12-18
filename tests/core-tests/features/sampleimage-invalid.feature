@@ -1,7 +1,6 @@
 # This file describes valid scenarios based upon
 # our own sample image
 
-@Images
 @SampleImage
 
 @Invalid
