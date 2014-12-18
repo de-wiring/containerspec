@@ -1,36 +1,39 @@
 containerspec
 ==============
 
-Containerspec lets you write and run specifications about docker[1] images and docker containers, using
-cucumber[2] and serverspec[3]. It is available as a docker image itself, so you don't have to install ruby or
+Containerspec lets you write and run specifications about docker [1] images and docker containers, using
+cucumber [2] and serverspec [3]. It is available as a docker image itself, so you don't have to install ruby or
 other dependencies to make it work.
 
 **Example**
 
-Pull an image, pull our cucumber-enable spec image and write a spec for that image:
+Pull our cucumber-enable spec image , pull a sample image and write a spec for that image:
 ```bash
 $ docker pull dockerfile/rethinkdb
 $ docker pull dewiring/spec_cucumber
-$ mkdir spec ; cd spec
+
+$ mkdir spec
+$ cd spec
+
 ~/spec$ cat >f1.feature <<EOF
 Feature: I need my images
 
 Scenario:  RethinkDB spec images
  Given i pull 'dockerfile/rethinkdb'
-When there are images tagged 'dockerfile/rethinkdb:latest'
-Then 'Checksum' should be set
-Then within Config, 'ExposedPorts' should be like '8080/tcp'
+ When there are images tagged 'dockerfile/rethinkdb:latest'
+ Then 'Checksum' should be set
+ Then within Config, 'ExposedPorts' should be like '8080/tcp'
 EOF
 ```
 
-Start a dewiring/spec_cucumber container, allowing read-only access to docker socket of the host, and inject current directory as /spec volume:
+Start a `dewiring/spec_cucumber` container, allowing read-only access to docker socket of the host, and inject current directory as /spec volume:
 
 ```bash
 ~/spec$ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro -v `pwd`:/spec dewiring/spec_cucumber --color
 
 Feature: I need my images
 
-Scenario: RethinkDB spec images                                # features/f1.feature:3
+Scenario: RethinkDB spec images                              # features/f1.feature:3
 Given i pull 'dockerfile/rethinkdb'                          # /project_step_definitions/image_definitions.rb:43
 When there are images tagged 'dockerfile/rethinkdb:latest'   # /project_step_definitions/image_definitions.rb:78
 Then 'Checksum' should be set                                # /project_step_definitions/image_definitions.rb:122
@@ -41,7 +44,7 @@ Then within Config, 'ExposedPorts' should be like '8080/tcp' # /project_step_def
 0m6.020s
 ```
 
-Now given that image, instantiate a container with certain some parameters, write a spec for it:
+Now given that image, instantiate a container with some parameters, write a spec for it:
 
 ```bash
 ~/spec$ docker run -d -P --name "db" dockerfile/rethinkdb
