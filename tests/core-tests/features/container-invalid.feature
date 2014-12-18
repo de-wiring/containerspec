@@ -4,7 +4,7 @@ Feature: Invalid clauses for a container setup
 
 # Setup
 Scenario: Set up container for test case
- Given i rerun container named 'spectest_1' with '-tdi -e TESTKEY1=TESTVALUE1 -v /:/vol:ro -v /tmp:/media -p 8080:9090 debian:jessie'
+ Given i rerun container named 'spectest_1' with '-tdi -e TESTKEY1=TESTVALUE1 -v /:/vol:ro -v /tmp:/media -u www-data -p 8080:9090 debian:jessie'
  When there are running containers named like 'nonexisting'
 
 Scenario: Non privileged
@@ -63,6 +63,24 @@ Scenario: Ports should be exposed
  When there are running containers named like 'spectest'
  Then container should expose port '22'
 
+Scenario: Run off image
+  When there are running containers named like 'spectest'
+  Then it should run on image 'no/such:image'
 
+Scenario: Run as user
+  When there are running containers named like 'spectest'
+  Then it should not run as user 'www-data'
 
+Scenario: Run as user
+  When there are running containers named like 'spectest'
+  Then it should run as user 'root'
+
+Scenario: Check Volumes-From
+  Given i rerun container named 'spec_voltest_2' with '-tdi --volumes-from spectest_1 debian:jessie'
+  When there are running containers named like 'spec_voltest'
+  Then it should not have volumes from 'spectest_1'
+
+Scenario: Check Volumes-From
+  When there are running containers named like 'spec_voltest'
+  Then it should have volumes from 'nonex_container'
 

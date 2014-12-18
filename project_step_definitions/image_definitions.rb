@@ -169,7 +169,7 @@ Then(/^within ([^ ]*), '(.*)' should be '(.*)'$/) do |part, key, arg|
 end
 
 Then(/^within ([^ ]*), '(.*)' should not be '(.*)'$/) do |part, key, arg|
-  fail "using within, valid  parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
+  fail "using within, valid parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
   err = (@matching_images || Docker::Image.all).select do |img|
     cc       = img.json[part]
     matching = (cc[key].to_s == arg.to_s)
@@ -179,7 +179,7 @@ Then(/^within ([^ ]*), '(.*)' should not be '(.*)'$/) do |part, key, arg|
 end
 
 Then(/^within ([^ ]*), '(.*)' should be set$/) do |part, key|
-  fail "using within, valid  parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
+  fail "using within, valid parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
   err = (@matching_images || Docker::Image.all).select do |img|
     cc = img.json[part]
     (cc[key] != nil) && !(be_set(cc[key]))
@@ -188,7 +188,7 @@ Then(/^within ([^ ]*), '(.*)' should be set$/) do |part, key|
 end
 
 Then(/^within ([^ ]*), '(.*)' should not be set$/) do |part, key|
-  fail "using within, valid  parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
+  fail "using within, valid parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
   err = (@matching_images || Docker::Image.all).select do |img|
     cc = img.json[part]
     (cc[key] != nil) && (be_set(cc[key]))

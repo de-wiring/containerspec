@@ -1,4 +1,5 @@
-Feature: Docker-Stack is pulled and valid
+@Images
+Feature: Application-Stack is pulled and valid
 
 Scenario: NGINX Base Image
   Given i pull 'nginx:1.7.8'

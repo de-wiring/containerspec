@@ -135,51 +135,51 @@ end
 
 # 2nd level, regexp
 
-Then(/^within (.*), '(.*)' should be like '(.*)'$/) do |part, key, arg|
+Then(/^within ([^ ]*), '(.*)' should be like '(.*)'$/) do |part, key, arg|
   fail "using within, valid parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
   re  = Regexp.new arg
   err = (@matching_images || Docker::Image.all).select do |img|
-    cc       = img.json['ContainerConfig']
+    cc       = img.json[part]
     matching = (cc[key].to_s.match(re) != nil)
     (cc != nil) && (cc[key] != nil) && (matching == false)
   end
-  fail "#{err.size} image(s) do not have ContainerConfig.#{key} like #{arg} but should have: #{short_ids(err)}" if err.size > 0
+  fail "#{err.size} image(s) do not have #{part}.#{key} like #{arg} but should have: #{short_ids(err)}" if err.size > 0
 end
 
-Then(/^within (.*), '(.*)' should not be like '(.*)'$/) do |part, key, arg|
-  fail "using within, valid  parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
+Then(/^within ([^ ]*), '(.*)' should not be like '(.*)'$/) do |part, key, arg|
+  fail "using within, valid parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
   re  = Regexp.new arg
   err = (@matching_images || Docker::Image.all).select do |img|
-    cc       = img.json['ContainerConfig']
+    cc       = img.json[part]
     matching = (cc[key].to_s.match(re) != nil)
     (cc != nil) && (cc[key] != nil) && (matching == true)
   end
-  fail "#{err.size} image(s) do have ContainerConfig.#{key} like #{arg} but should not have: #{short_ids(err)}" if err.size > 0
+  fail "#{err.size} image(s) do have #{part}.#{key} like #{arg} but should not have: #{short_ids(err)}" if err.size > 0
 end
 
 # 2nd level, general
-Then(/^within (.*), '(.*)' should be '(.*)'$/) do |part, key, arg|
+Then(/^within ([^ ]*), '(.*)' should be '(.*)'$/) do |part, key, arg|
   fail "using within, valid parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
   err = (@matching_images || Docker::Image.all).select do |img|
-    cc       = img.json['ContainerConfig']
+    cc       = img.json[part]
     matching = (cc[key].to_s == arg.to_s)
     (cc != nil) && (cc[key] != nil) && (matching == false)
   end
-  fail "#{err.size} image(s) do not have ContainerConfig.#{key} eq #{arg} but should have: #{short_ids(err)}" if err.size > 0
+  fail "#{err.size} image(s) do not have #{part}.#{key} eq #{arg} but should have: #{short_ids(err)}" if err.size > 0
 end
 
-Then(/^within (.*), '(.*)' should not be '(.*)'$/) do |part, key, arg|
-  fail "using within, valid  parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
+Then(/^within ([^ ]*), '(.*)' should not be '(.*)'$/) do |part, key, arg|
+  fail "using within, valid parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
   err = (@matching_images || Docker::Image.all).select do |img|
-    cc       = img.json['ContainerConfig']
+    cc       = img.json[part]
     matching = (cc[key].to_s == arg.to_s)
     (cc != nil) && (cc[key] != nil) && (matching == true)
   end
-  fail "#{err.size} image(s) do have ContainerConfig.#{key} eq #{arg} but should not have: #{short_ids(err)}" if err.size > 0
+  fail "#{err.size} image(s) do have #{part}.#{key} eq #{arg} but should not have: #{short_ids(err)}" if err.size > 0
 end
 
-Then(/^within (.*), '(.*)' should be set$/) do |part, key|
-  fail "using within, valid  parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
+Then(/^within ([^ ]*), '(.*)' should be set$/) do |part, key|
+  fail "using within, valid parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
   err = (@matching_images || Docker::Image.all).select do |img|
     cc = img.json[part]
     (cc[key] != nil) && !(be_set(cc[key]))
@@ -187,8 +187,8 @@ Then(/^within (.*), '(.*)' should be set$/) do |part, key|
   fail "#{err.size} image(s) do not have #{key} set (but should have): #{short_ids(err)}" if err.size > 0
 end
 
-Then(/^within (.*), '(.*)' should not be set$/) do |part, key|
-  fail "using within, valid  parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
+Then(/^within ([^ ]*), '(.*)' should not be set$/) do |part, key|
+  fail "using within, valid parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
   err = (@matching_images || Docker::Image.all).select do |img|
     cc = img.json[part]
     (cc[key] != nil) && (be_set(cc[key]))

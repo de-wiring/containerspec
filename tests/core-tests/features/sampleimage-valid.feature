@@ -1,8 +1,10 @@
 # This file describes valid scenarios based upon
 # our own sample image
 
-@Images
+
 @SampleImage
+# please go to ../sample_images and run build.sh
+# which will build de_wiring/sampleimage:latest
 
 @Valid
 Feature: Valid clauses work
