@@ -1,7 +1,7 @@
 
 # example-tests
 
-This test suite covers a more real-life example with images from nginx, nodejs and redis.
+This test suite covers a more real-life example with images from nginx, nodejs and redis. It covers both an image setup as well as the running containers below.
 
 ## Images
 
