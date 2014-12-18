@@ -109,6 +109,8 @@ Cucumber expects files to appear in certain directories, which is abstracted awa
 
 Step definitions can of course be used at docker host level, without a need for pulling the dewiring/spec_cucumber container.
 
+![Overview](https://raw.githubusercontent.com/de-wiring/containerspec/master/suppl/arch2.png)
+
 References
 ----------
 - [1] [www.docker.com](www.docker.com)
