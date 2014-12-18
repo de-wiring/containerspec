@@ -52,11 +52,11 @@ Feature: Docker-Stack is pulled and valid
 
 ## Container
 
-`start_example_containers.sh` takes the above images and start containers with parameters and links them
+`start_example_containers.sh` takes the above images, starts containers with parameters and links them
 together. This script can be run multiple times, it will kill running containers with same names before 
 starting them.
 
-This is not a functional application but serves only as a base for demonstrating the container spec
+This is not a functional application but serves only as a base for demonstrating container spec
 capabilities:
 
 ```bash
@@ -95,6 +95,6 @@ Feature: Application-Stack is up and running, wired correctly
 0m0.156s
 ```
 
-Modifying the start script one can play around with this example and see what happens
-to the spec when containers are run in a different way (i.e. wrong linking, wrong ports, wrong names etc.)
+Modifying the start script, one can play around with this example and see what happens
+to the spec when containers are run in a different ways (i.e. wrong linking, wrong ports, wrong names etc.)
 
