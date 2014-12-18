@@ -2,15 +2,16 @@ containerspec
 ==============
 
 Containerspec lets you write and run specifications about docker [1] images and docker containers, using
-cucumber [2] and serverspec [3]. It is available as a docker image itself, so you don't have to install ruby or
+cucumber [2] and serverspec [3]. It is available as a docker image, so you don't have to install ruby or
 other dependencies to make it work.
 
 **Example**
 
-Pull our cucumber-enable spec image , pull a sample image and write a spec for that image:
+Pull the cucumber-enabled spec image , pull a sample image and write a spec for that image:
 ```bash
-$ docker pull dockerfile/rethinkdb
 $ docker pull dewiring/spec_cucumber
+
+$ docker pull dockerfile/rethinkdb
 
 $ mkdir spec
 $ cd spec
@@ -93,9 +94,9 @@ And it should not run privileged             # /project_step_definitions/contain
 0m4.074s
 ```
 
-Find a **more detailed example** in [tests/examples-tests](https://github.com/de-wiring/spec-dockerbox/tree/master/tests/example-tests).
+Find a **more detailed examples** in [tests/examples-tests](https://github.com/de-wiring/containerspec/tree/master/tests/example-tests).
 
-`Vagrantfile` will set up a vm where an automated build test can be run.
+`Vagrantfile` will set up a virtual machine where an automated build test can be run (see [tests/core-tests](https://github.com/de-wiring/containerspec/tree/master/tests/core-tests))
 
 References
 ----------
