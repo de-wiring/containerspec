@@ -66,7 +66,7 @@ Feature: Application-Stack is up and running, wired correctly
 (...)
   Scenario: NGINX Container                                           # features/container_tests.feature:17
     When there is a running container named 'demo_nginx'              # features/step_definitions/container_definitions.rb:29
-    And they should run on image 'nginx:1.7.8'                        # features/step_definitions/container_definitions.rb:240
+    Then they should run on image 'nginx:1.7.8'                       # features/step_definitions/container_definitions.rb:240
     And containers should not expose port '80'                        # features/step_definitions/container_definitions.rb:230
     And containers should expose port '443' on host port '8443'       # features/step_definitions/container_definitions.rb:213
     And container volume '/etc/nginx/sites-enabled' should be mounted # features/step_definitions/container_definitions.rb:167
@@ -76,13 +76,13 @@ Feature: Application-Stack is up and running, wired correctly
 
   Scenario: Node App Container                                  # features/container_tests.feature:27
     When there are running containers named like 'demo_node'    # features/step_definitions/container_definitions.rb:37
-    And they should run on image 'node:0.10.33-slim'            # features/step_definitions/container_definitions.rb:240
+    Then they should run on image 'node:0.10.33-slim'           # features/step_definitions/container_definitions.rb:240
     And containers should expose port '8888'                    # features/step_definitions/container_definitions.rb:203
     And they should be linked to 'demo_redis' with name 'redis' # features/step_definitions/container_definitions.rb:290
 
   Scenario: Redis Container                              # features/container_tests.feature:33
     When there are running containers named like 'redis' # features/step_definitions/container_definitions.rb:37
-    And they should run on image 'redis:2.8.12'          # features/step_definitions/container_definitions.rb:240
+    Then they should run on image 'redis:2.8.12'         # features/step_definitions/container_definitions.rb:240
     And containers should expose port '6379'             # features/step_definitions/container_definitions.rb:203
 
   Scenario: Security considerations for all              # features/container_tests.feature:38
