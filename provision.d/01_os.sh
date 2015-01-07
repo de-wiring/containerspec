@@ -1,3 +1,3 @@
 
 export DEBIAN_FRONTEND=noninteractive
-apt-get update -yqq
+apt-get update -y

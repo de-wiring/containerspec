@@ -4,7 +4,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = ENV['BOXNAME'] || 'chef/ubuntu-14.04'
+  config.vm.box = ENV['BOXNAME'] || 'ubuntu/trusty64'
   config.vm.box_check_update = false
 
   # map folders into vm
