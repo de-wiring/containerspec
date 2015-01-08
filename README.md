@@ -95,10 +95,10 @@ And it should not run privileged             # /project_step_definitions/contain
 ```
 
 Matchers are available for 
-- generic fields within result of `docker inspect`
+- generic fields within results of `docker inspect`
 - User ("should not run as root")
 - Environment ("its environment should include ...")
-- Volumes (container volume .. should be mounted" 
+- Volumes ("container volume .. should be mounted") 
 - Exposed Ports ("container should expose port .. on host port ...")
 - Linking ("it should be linked to ...")
 - .. and more to come.
