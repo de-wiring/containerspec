@@ -94,7 +94,16 @@ And it should not run privileged             # /project_step_definitions/contain
 0m4.074s
 ```
 
-Find a **more detailed examples** in [tests/examples-tests](https://github.com/de-wiring/containerspec/tree/master/tests/example-tests).
+Matchers are available for 
+- generic fields within result of `docker inspect`
+- User ("should not run as root")
+- Environment ("its environment should include ...")
+- Volumes (container volume .. should be mounted" 
+- Exposed Ports ("container should expose port .. on host port ...")
+- Linking ("it should be linked to ...")
+- .. and more to come.
+
+Find **more detailed examples** in [tests/examples-tests](https://github.com/de-wiring/containerspec/tree/master/tests/example-tests).
 
 `Vagrantfile` will set up a virtual machine where an automated build test can be run (see [tests/core-tests](https://github.com/de-wiring/containerspec/tree/master/tests/core-tests))
 
