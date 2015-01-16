@@ -182,7 +182,8 @@ Then(/^within ([^ ]*), '(.*)' should be set$/) do |part, key|
   fail "using within, valid parts are Config, ContainerConfig" unless %W( Config ContainerConfig ).include? part
   err = (@matching_images || Docker::Image.all).select do |img|
     cc = img.json[part]
-    (cc[key] != nil) && !(be_set(cc[key]))
+    #(cc[key] != nil) && !(be_set(cc[key]))
+    !(be_set(cc[key]))
   end
   fail "#{err.size} image(s) do not have #{key} set (but should have): #{short_ids(err)}" if err.size > 0
 end

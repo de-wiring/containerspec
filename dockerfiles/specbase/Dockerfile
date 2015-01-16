@@ -1,5 +1,7 @@
 FROM debian:jessie
 
+MAINTAINER Andreas Schmidt <andreas@de-wiring.net>
+
 ENV	DEBIAN_FRONTEND	noninteractive
 
 RUN 	apt-get update -yq && \

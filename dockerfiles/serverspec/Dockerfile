@@ -1,5 +1,7 @@
 FROM dewiring/spec_base
 
+MAINTAINER Andreas Schmidt <andreas@de-wiring.net>
+
 RUN	apt-get update -yqq && apt-get install -yqq docker.io && rm -rf /var/lib/apt/lists/*
 
 ADD ./spec /serverspec/spec
