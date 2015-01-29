@@ -3,7 +3,7 @@ containerspec
 
 Containerspec lets you write and run specifications about docker [1] images and docker containers, using
 cucumber [2] and serverspec [3]. It is available as a docker image, so you don't have to install ruby or
-other dependencies to make it work.
+other dependencies to make it work. See also a [blog post](https://github.com/de-wiring/containerspec/wiki/Specifying-and-testing-a-docker-setup) for a detailed introduction.
 
 **Example**
 
